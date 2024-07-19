@@ -2,36 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Guru;
-use App\Models\Jadwal;
-use App\Models\Siswa;
+use App\Models\Guru_model;
+use App\Models\Hari_model;
+use App\Models\Jadwal_model;
+use App\Models\Pelajaran_model;
+use App\Models\Siswa_model;
 use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
     public function index()
     {
-        //Query builder biaya
-        $myjadwal   = new Jadwal();
-        $jadwal = $myjadwal->list_jadwal();
-
-        //Menggunakan Eloquent
-        //$jadwal = Jadwal::get();      
-       return view('jadwal.index', compact('jadwal'));
+        $jadwal = Jadwal_model::select('jadwal.*', 'guru.nama_guru','pelajaran.nama_pelajaran')
+                ->join('guru', 'guru.id_guru','=','jadwal.id_guru')
+                ->join('pelajaran', 'pelajaran.id','=','jadwal.id_pelajaran')
+                ->get();
+        return view ('jadwal.index', compact('jadwal'));
     }
 
     public function create()
     {
-       return view ('Jadwal.add');
+        $idguruplh = "";
+        $guru = Guru_model::get();
+        $pelajaran = Pelajaran_model::get();
+        $hari = Hari_model::get();
+       return view ('jadwal.add', compact('guru','idguruplh','pelajaran','hari'));
     }
 
     public function store(Request $request)
-    {
-        // $Jadwal = new Jadwal();
-        // $Jadwal->nama_Jadwal = $request->nama_Jadwal;
-        // $Jadwal->tahun = $request->tahun;
-        // $Jadwal->save();
-        // return redirect()->route('Jadwal.index');
+    {       
+        $Jadwal = new Jadwal_model();
+        $Jadwal->id_guru = $request->id_guru;
+        $Jadwal->id_pelajaran = $request->id_pelajaran;
+        $Jadwal->hari = $request->hari;
+        $Jadwal->jam_mulai = $request->jam_mulai;
+        $Jadwal->save();
+        return redirect()->route('jadwal.index');        
     }
 
 
@@ -43,23 +49,28 @@ class JadwalController extends Controller
 
     public function edit(string $id)
     {
-        // $Jadwal = Jadwal::find($id);
-        // return view('Jadwal.edit', compact('Jadwal'));
+        $jadwal = Jadwal_model::find($id);
+        $guru = Guru_model::get();
+        $pelajaran = Pelajaran_model::get();
+        return view('Jadwal.edit', compact('jadwal', 'guru', 'pelajaran'));
     }
 
     public function update(Request $request, string $id)
     {
-        // $Jadwal = Jadwal::find($id);
-        // $Jadwal->nama_Jadwal = $request->nama_Jadwal;
-        // $Jadwal->tahun = $request->tahun;
-        // $Jadwal->update();
-        // return redirect()->route('Jadwal.index');
+        $Jadwal = Jadwal_model::find($id);
+        $Jadwal->hari = $request->hari;
+        $Jadwal->jam_mulai = $request->jam_mulai;
+        $Jadwal->id_guru = $request->id_guru;
+        $Jadwal->id_pelajaran = $request->id_pelajaran;
+        $Jadwal->update();
+        return redirect()->route('jadwal.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
 
     public function destroy(string $id)
     {
-        //  Jadwal::destroy($id);
-        //  return redirect()->route('Jadwal.index');
+        $jadwal = Jadwal_model::findOrFail($id);
+        $jadwal->delete();
+        return redirect()->route('jadwal.index')->with(['success' => 'Data Berhasil Dihapus!']);        
     }
 }

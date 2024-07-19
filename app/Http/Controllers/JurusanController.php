@@ -14,9 +14,9 @@ class JurusanController extends Controller
         $jurusan = DB::table('jurusan')->get();
         $data = [
             'jurusan' => $jurusan,
-            'content' => 'jurusan.index'
+            'content' => 'jurusan/index'
         ];
 
-        return view('layout.wrapper', $data);
+        return view('layout/wrapper', $data);
     }
 }

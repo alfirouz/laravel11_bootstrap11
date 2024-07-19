@@ -53,4 +53,8 @@ class PengumumanController extends Controller
         $product->delete();
         return redirect()->route('pengumuman.index')->with(['success' => 'Data Berhasil Dihapus!']);        
     }
+    public function cetak_pengumuman(){
+        $pengumuman = Pengumuman_model::get();
+        return view('admin/pengumuman/cetak_pengumuman', compact('pengumuman'));
+    }
 }

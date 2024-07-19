@@ -1,20 +1,18 @@
-@extends('layout.main')
+@extends('layout/wrapper')
 @section('content')
-<h31>Tambah Data</h3>
+<h3>Tambah Data Hari</h3>
+</p>
+<div class="card">
+    <div class="card-body">
 <form action="{{ route('hari.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <table>
         <tr>
             <td>Nama Hari</td><td><input type="text" name="NamaHari"></td>
-        </tr>
-        
-        <tr>
-            <td>Icon</td><td><input type="file" name="img"></td>
         </tr>               
         <tr>
             <td>
-                <input type="submit" value="Simpan">
-                <a class="btn btn-sm btn-danger" href="{{ url()->previous() }}" >Back</a>
+            <button type="submit" class="btn btn-sm btn-success">Simpan</button>
             </td>
         </tr>
     </table>

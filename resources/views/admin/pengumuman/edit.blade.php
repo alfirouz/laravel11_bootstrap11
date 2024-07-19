@@ -1,6 +1,9 @@
 @extends('layout.main')
 @section('content')
-<h3>Edit Data</h3>
+<h3>Edit Data Pengumuman</h3>
+</p>
+<div class="card">
+    <div class="card-body">
 <form action="{{ route('pengumuman.update', $pengumuman->id_pengumuman) }}" method="post">
     @csrf
     @method('put')
@@ -13,8 +16,7 @@
         </tr>
         <tr>
             <td>
-                <input type="submit" value="Simpan">
-                <a class="btn btn-sm btn-danger" href="{{ url()->previous() }}" >Back</a>
+            <button type="submit" class="btn btn-sm btn-success">Simpan</button>
             </td>
         </tr>
     </table>

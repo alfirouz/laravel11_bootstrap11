@@ -1,8 +1,11 @@
-@extends('layout.main')
+@extends('layout/wrapper')
 @section('content')
 
 
 <h3>Tambah Data Kurikulum</h3>
+</p>
+<div class="card">
+    <div class="card-body">
 <form action="{{ route('kurikulum.store') }}" method="POST">
     @csrf
 <table>
@@ -13,7 +16,7 @@
         <td>Tahun</td><td><input type="text" name="tahun"></td>
     </tr>
     <tr>
-        <td><input type="submit" value="Kirim"></td>
+        <td><button type="submit" class="btn btn-sm btn-success">Simpan</button></td>
     </tr>
 </table>
 </form>

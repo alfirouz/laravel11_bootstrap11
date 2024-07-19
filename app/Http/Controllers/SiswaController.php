@@ -2,73 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Siswa;
-use App\Http\Requests\StoreSiswaRequest;
-use App\Http\Requests\UpdateSiswaRequest;
+use App\Models\Siswa_model;
 use Illuminate\Http\Request;
 
 class SiswaController extends Controller
 {
     public function index()
     {
-        return view ('siswa.index')->with([
-            'siswa' => Siswa::all()
-        ]);
+        $siswa = Siswa_model::get();
+        return view('siswa.index', compact('siswa'));
     }
 
-    public function add()
+    public function create()
     {
         return view ('siswa.add');
     }
 
-    public function store(StoreSiswaRequest $request)
+    public function store(Request $request)
     {
-       $validate =$request->validated();
-       $siswa = new Siswa;
+       $siswa = new Siswa_model;
        $siswa->id_siswa     = $request->id_siswa;
        $siswa->nama_siswa   = $request->nama_siswa;
        $siswa->alamat       = $request->alamat;
        $siswa->phone        = $request->phone;
        $siswa->gender       = $request->gender;
        $siswa->save();
-       return redirect('siswa')->with('msg', 'Add Sukses');
+       return redirect()->route('siswa.index');
 
     }
 
-    public function edit(Siswa $siswa, $id_siswa)
+    public function edit(Siswa_model $siswa_model, $id_siswa)
     {        
         // echo $id_siswa;
-        $data = $siswa->find($id_siswa);
-        return view('siswa.edit')->with([
-            'id_siswa'      => $id_siswa,
-            'nama_siswa'    => $data->nama_siswa,
-            'alamat'        => $data->alamat,
-            'gender'        => $data->gender,
-            'phone'         => $data->phone,            
-        ]);
+        $siswa = Siswa_model::find($id_siswa);
+        return view('siswa.edit', compact('siswa'));
         
     }
 
-    public function update(UpdateSiswaRequest $request, Siswa $siswa)
+    public function update(Request $request, Siswa_model $siswa_model, $id_siswa)
     {
-        $data = $siswa->find($request->id_siswa);
-        $data->nama_siswa   = $request->nama_siswa;
-        $data->alamat       = $request->alamat;
-        $data->phone        = $request->phone;
-        $data->gender       = $request->gender;
-        $data->save();
-        return redirect('siswa')->with('msg', 'Edit'. $data->nama_siswa.' berhasil');
+        $siswa = Siswa_model::find($id_siswa);
+        $siswa->id_siswa = $request->id_siswa;
+        $siswa->nama_siswa   = $request->nama_siswa;
+        $siswa->alamat       = $request->alamat;
+        $siswa->phone        = $request->phone;
+        $siswa->gender       = $request->gender;
+        $siswa->save();
+        return redirect('siswa')->with('msg', 'Edit'. $siswa->nama_siswa.' berhasil');
     }
 
-    public function destroy(Siswa $siswa, $id_siswa)
+    public function destroy(Siswa_model $siswa_model, $id_siswa)
     {
-        $data = $siswa->find($id_siswa);    
-        $data->delete();
-        return redirect('siswa')->with('msg', 'Hapus'. $data->nama_siswa.' berhasil');
+        Siswa_model::find($id_siswa)->delete();
+        return redirect()->route('siswa.index');;
     }
 
     public function cetak_siswa(){
-        $siswa = Siswa::get();
+        $siswa = Siswa_model::get();
         return view ('siswa.cetak_siswa', compact('siswa'));
     }
 }

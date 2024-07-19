@@ -1,10 +1,11 @@
 @extends('layout.main')
 @section('content')
 
-<h3>Data Siswa</h3>
+<h3>Master Data Pelajaran</h3>
+</p>
 <div class="card">
 <div class="card-header">
-<a href="{{ route('pelajaran.create') }}">Add</a>
+<a href="{{ route('pelajaran.create') }}" class="btn btn-success btn-sm">Tambah Data</a>
 </div>
 <div class="card-body">
   @if (session('msg')) 
@@ -17,9 +18,7 @@
     <thead>
         <tr>
             <th>No</th>
-          
             <th>Nama Pelajaran</th>
-            <th>Alamat</th>
             <th>Aksi</th>            
         </tr>
     </thead>
@@ -30,14 +29,14 @@
             <td>{{ $loop->iteration }}</td>
        
             <td>{{ $row->nama_pelajaran }}</td>
-            <td>{{ $row->alamat }}</td>
            
-              <td><a href="{{ route('pelajaran.edit', $row->id) }}">Edit</a></td>
+        
               <td>
             <form action="{{ route('pelajaran.destroy', $row->id) }}" method="POST">
+            <a href="{{ route('pelajaran.edit', $row->id) }}" class="btn btn-sm btn-primary">EDIT</a>
               @csrf 
               @method('delete')
-              <button>Del</button>
+              <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
             </form>
             </td>
         </tr>

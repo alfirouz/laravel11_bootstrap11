@@ -1,14 +1,14 @@
 
-@extends('layout.main')
+@extends('layout/wrapper')
 @section('content')
-<h1>Master Perkiaan</h1>
+<h1>Master Perkiraan</h1>
 <a class="btn btn-success btn-sm" href="{{ route('perkiraan.create') }}">Tambah Data</a>
 <a class="btn btn-danger btn-sm" href="{{ route('cetak_perkiraan') }}" target="_BLANK">Cetak Perkiraan</a>
 <table class="table table-sm table-stripped table-bordered">
 <thead>
     <tr>
         <td>No</td>
-        <td>Nomor Perkiaan</td>
+        <td>Nomor Perkiraan</td>
         <td>Nama Perkiraan</td>
         <td>Kelompok</td>
         <td>Aksi</td>
@@ -46,7 +46,7 @@
 
 <script>
   function deleteData(name){
-    pesan = confirm('Yakin data dengan nama ${name} ini dihapus?');
+    pesan = confirm('Yakin data dengan nama ${nama_perkiraan} ini dihapus?');
     if(pesan) return true;
     else return false;
   }

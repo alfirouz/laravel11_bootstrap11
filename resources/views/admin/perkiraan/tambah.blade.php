@@ -9,7 +9,7 @@
 
 <div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label">Nomor Perkiraan</label>
-  <input type="text" class="form-control" name="nomor_perkiraan" id="exampleFormControlInput1" placeholder="Nomor Perkiaan">
+  <input type="text" class="form-control" name="nomor_perkiraan" id="exampleFormControlInput1" placeholder="Nomor Perkiraan">
 </div>
 
 <div class="mb-3">

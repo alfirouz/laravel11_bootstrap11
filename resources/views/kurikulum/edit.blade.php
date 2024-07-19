@@ -1,8 +1,9 @@
 @extends('layout.main')
 @section('content')
-
-
 <h3>Edit Data Kurikulum</h3>
+</p>
+<div class="card">
+    <div class="card-header">
 <form action="{{ route('kurikulum.update', $kurikulum->id) }}" method="POST">
     @csrf
     @method('PUT')
@@ -14,7 +15,7 @@
         <td>Tahun</td><td><input type="text" name="tahun" value="{{ $kurikulum->tahun }}"></td>
     </tr>
     <tr>
-        <td><input type="submit" value="Kirim"></td>
+        <td><button type="submit" class="btn btn-sm btn-success">Simpan</button></td>
     </tr>
 </table>
 </form>

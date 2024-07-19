@@ -1,10 +1,10 @@
-@extends('layout.main')
+@extends('layout/wrapper')
 @section('content')
 
-<h1>Master Kurikulum</h1>
+<h3>Master Data Kurikulum</h3>
 <div class="card">
         <div class="card-header">
-        <a href="{{ route('kurikulum.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+        <a href="{{ route('kurikulum.create') }}" class="btn btn-sm btn-success">Tambah Data</a>
         </div>
         <div class="card-body">   
             <table class="table table-sm table-stripped table-bordered">
@@ -14,7 +14,6 @@
                 <td>Nama Kurikulum</td>
                 <td>Tahun</td>
                 <td>Aksi</td>
-                <td>Delete</td>
             </tr>
             </thead>
             @foreach ($kurikulum as $rows)
@@ -24,16 +23,16 @@
                     <td>{{ $rows->nama_kurikulum }}</td>
                     <td>{{ $rows->tahun }} </td>
                     <td>
-                        <a href="{{ route('kurikulum.edit', $rows->id) }}">Edit</a>  
+              
                                      
-                </td>
-                <td> 
+
                     <form action="{{ route('kurikulum.destroy', $rows->id) }}" method="POST">
+                    <a href="{{ route('kurikulum.edit', $rows->id) }}" class="btn btn-sm btn-primary">Edit</a>
                             @csrf 
                             @method('DELETE')
-                            <button class="btn btn-danger btn-sm">Del</button>
+                            <button class="btn btn-danger btn-sm">HAPUS</button>
                         </form>  </td>
-                 </tr>   
+                  
             @endforeach
             </tbody>
             </table>

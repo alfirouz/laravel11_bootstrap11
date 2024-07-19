@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Siswa_model extends Model
 {
-    protected $fillable = ['nis', 'nama_siswa', 'alamat'];
-    protected $table = 'siswa';
+    use HasFactory;
+
+    protected $table ="siswa";
+    protected $primaryKey ="id_siswa";
+
+    public $incrementing = false;
+    public $timestamps = true;
 }

@@ -1,8 +1,7 @@
-@extends('layout.main')
+@extends('layout/wrapper')
 @section('content')
 
-<h1>Master Hari</h1>
-<a href="">Tambah Data</a>
+<h3>Master Hari</h3>
 <div class="card">
     <div class="card-header">
         <a href="{{ route('hari.create') }}" class="btn btn-success btn-sm">Tambah Data</a>
@@ -23,10 +22,8 @@
     <tr>
         <td>{{ $loop->iteration }}</td>
         <td>{{ $item->NamaHari }}</td>
-        {{-- <td><img src="{{ asset('storage/img/' . $item->img) }}" alt="" width="5%"></td> --}}
         <td>
             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('hari.destroy', $item->HariID) }}" method="POST">
-                <a href="{{ route('hari.show', $item->HariID) }}" class="btn btn-sm btn-dark">SHOW</a>
                 <a href="{{ route('hari.edit', $item->HariID) }}" class="btn btn-sm btn-primary">EDIT</a>
                 @csrf
                 @method('DELETE')

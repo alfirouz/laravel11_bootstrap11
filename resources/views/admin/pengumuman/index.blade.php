@@ -1,15 +1,20 @@
-@extends('layout.main')
+@extends('layout/wrapper')
 @section('content')
     
 
-<h1>Master Data Pengumuman</h1>
-<a href="{{ route('pengumuman.create') }}" class="btn btn-danger btn-sm">Tambah Data</a>
-<table class="table">
+<h3>Master Data Pengumuman</h3>
+</p>
+<div class="card">
+<div class="card-header">
+<a href="{{ route('pengumuman.create') }}" class="btn btn-success btn-sm">Tambah Data</a>
+<a class="btn btn-success btn-sm" href="{{ route('cetak_pengumuman') }}" target="_BLANK">Cetak Pengumuman</a>
+</div>
+<table class="table table-sm table-stripped table-bordered">
     <tr>
+        <thead>
         <td scope="col">No</td>
         <td scope="col">Judul</td>
         <td scope="col">Isi Pengumuman</td>
-        <td scope="col">Tgl Posting</td>
         <td scope="col">Aksi</td>
     </tr>
 </thead>
@@ -19,10 +24,8 @@
         <td>{{ $loop->iteration }}</td>
         <td>{{ $item->judul }}</td>
         <td>{{ $item->isi_pengumuman }}</td>
-        <td>{{ $item->tgl_posting }}</td>
         <td>
             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pengumuman.destroy', $item->id_pengumuman) }}" method="POST">
-                <a href="{{ route('pengumuman.show', $item->id_pengumuman) }}" class="btn btn-sm btn-dark">SHOW</a>
                 <a href="{{ route('pengumuman.edit', $item->id_pengumuman) }}" class="btn btn-sm btn-primary">EDIT</a>
                 @csrf
                 @method('DELETE')

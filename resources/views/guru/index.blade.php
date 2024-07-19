@@ -1,54 +1,35 @@
-@extends('layout.main')
+@extends('layout/wrapper')
 @section('content')
-
-<h3>Data Guru</h3>
+<h3>Master Data Guru</h3>
 <div class="card">
 <div class="card-header">
-<button type="button" class="btn btn-sm btn-success" onclick="window.location='{{ url('guru/add') }}'">
-        <i class="fas fa-plus-circle"></i> Add
-</button>
+<a href="{{ route('guru.create') }}" class="btn btn-success btn-sm">Tambah Data</a>
+<a class="btn btn-sm btn-success" href="{{ route('cetak_guru') }}" target="_BLANK">Cetak Data Guru</a>
 </div>
-<div class="card-body">
-  @if (session('msg')) 
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong>Berhasil</strong> {{ session('msg') }}
-      <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  @endif
-
-  <form method="GET">
-    <div class="row mb-3">
-    <label for="search" class="col-sm-2 col-form-label">Cari Data</label>
-    <div class="col-sm-10">
-    <input type="text" class="form-control form-control-sm"  placeholder="Pencarian" name="search" autofocus value="{{ $search }}">
-    </div>
-    </div>
-  </form>
   <table class="table table-sm table-stripped table-bordered">
     <thead>
         <tr>
             <th>No</th>
             <th>ID Guru</th>
             <th>Nama Guru</th>
-            <th>Genre</th>
+            <th>Jenis Kelamin</th>
+            <th>Alamat</th>
+            <th>No Handphone</th>
             <th>Aksi</th>            
         </tr>
     </thead>
 
     <tbody>
-      <!-- agar nomor berjalan pada pagination -->
-      @php
-        $nomor = 1 + (($guru->currentPage() - 1) * $guru->perPage()); 
-      @endphp
         @foreach($guru as $row)
         <tr>
-            <!-- <td>{{ $loop->iteration }}</td> -->
-            <td>{{ $nomor++ }}</td>
+            <td>{{ $loop->iteration }}</td>
             <td>{{ $row->id_guru }}</td>
             <td>{{ $row->nama_guru }}</td>
             <td>{{ ($row->gender=='M') ? 'Male' : 'Female' }}</td>
+            <td>{{ $row->alamat }}</td>
+            <td>{{ $row->phone }}</td>
             <td>
-              <button onclick="window.location='{{ url('guru/'.$row->id_guru) }}'" type="button" class="btn btn-sm btn-warning" title="Edit Data">
+              <button onclick="window.location='{{ route('guru.edit', $row->id_guru) }}'" type="button" class="btn btn-sm btn-warning" title="Edit Data">
                 <i class="fas fa-edit"></i>
               </button>
 
@@ -65,9 +46,6 @@
         @endforeach
     </tbody>
   </table>
-  <!-- {{ $guru->links() }} -->
-  {!! $guru->appends(Request::except('page'))->render() !!}
-
 </div>
 </div>
 

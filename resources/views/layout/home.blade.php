@@ -1,5 +1,3 @@
-@extends('layout.main')
-@section('content')
 <div class="card">
 <div class="card-header">
    Welcome
